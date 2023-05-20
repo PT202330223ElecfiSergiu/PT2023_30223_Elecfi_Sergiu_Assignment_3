@@ -30,11 +30,11 @@ public class ConnectionFactory {
             return connection;
     }
 
-    private static Connection getConnection(){
+    public static Connection getConnection(){
             return singleInstance.createConnection();
     }
 
-    private static void close(Connection connection) {
+    public static void close(Connection connection) {
         if (connection != null) {
             try {
                 connection.close();
@@ -43,7 +43,7 @@ public class ConnectionFactory {
             }
         }
     }
-    private static void close(Statement statement){
+    public static void close(Statement statement){
             if(statement != null){
                 try{
                     statement.close();
@@ -53,7 +53,7 @@ public class ConnectionFactory {
             }
     }
 
-    private static void close(ResultSet resultSet){
+    public static void close(ResultSet resultSet){
             if(resultSet != null){
                 try{
                     resultSet.close();

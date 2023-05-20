@@ -6,10 +6,7 @@ import java.awt.*;
 public class View {
     private JFrame frame = new JFrame("Orders Management");
     private JPanel panel = new JPanel();
-    private JCheckBox checkBox1 = new JCheckBox("Clients");
-    private JCheckBox checkBox2 = new JCheckBox("Products");
-    private JCheckBox checkBox3 = new JCheckBox("Make Order");
-    private ButtonGroup checkBoxGroup = new ButtonGroup();
+    private JLabel welcome = new JLabel();
     private JLabel titlu = new JLabel();
     private JLabel nume = new JLabel();
     private JLabel grupa = new JLabel();
@@ -27,7 +24,6 @@ public class View {
         panel.setLayout(null);
 
         labels();
-        checkBoxes();
         buttons();
         frame.setVisible(true);
         frame.setResizable(false);
@@ -48,26 +44,11 @@ public class View {
         titlu.setBounds(100,30,300,40);
         titlu.setFont(new Font("times new roman", Font.ITALIC,35));
         panel.add(titlu);
-    }
 
-    public void checkBoxes(){
-        checkBox1.setFont(new Font("times new roman", Font.ITALIC,20));
-        checkBox1.setBounds(30,170,150,20);
-        checkBox1.setBackground(new Color(233,116,81));
-        checkBoxGroup.add(checkBox1);
-        panel.add(checkBox1);
-
-        checkBox2.setFont(new Font("times new roman", Font.ITALIC,20));
-        checkBox2.setBounds(30,200,150,20);
-        checkBox2.setBackground(new Color(233,116,81));
-        checkBoxGroup.add(checkBox2);
-        panel.add(checkBox2);
-
-        checkBox3.setFont(new Font("times new roman", Font.ITALIC,20));
-        checkBox3.setBounds(30,230,150,20);
-        checkBox3.setBackground(new Color(233,116,81));
-        checkBoxGroup.add(checkBox3);
-        panel.add(checkBox3);
+        welcome.setText("WELCOME!!!");
+        welcome.setBounds(130,100,300,40);
+        welcome.setFont(new Font("times new roman", Font.ITALIC,35));
+        panel.add(welcome);
     }
 
     public void buttons(){
@@ -83,14 +64,7 @@ public class View {
         next.setBounds(30,260,120,25);
         next.setFont(new Font("times new roman", Font.ITALIC,20));
         next.addActionListener(e -> {
-            if(checkBox1.isSelected()){
-                frame.dispose();
-                new ClientView();
-            }
-            if(checkBox2.isSelected()){
-                frame.dispose();
-                new ProductView();
-            }
+            new MakeOrder();
         });
         panel.add(next);
     }

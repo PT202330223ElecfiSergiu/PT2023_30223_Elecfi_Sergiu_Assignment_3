@@ -24,6 +24,7 @@ public class ClientView {
     public ClientView(){
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocation(0,0);
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         panel.setBackground(new Color(233,116,81));
@@ -86,14 +87,6 @@ public class ClientView {
     }
 
     public void buttons(){
-        buton1.setText("EXIT");
-        buton1.setBounds(320,40,80,25);
-        buton1.setFont(new Font("times new roman", Font.ITALIC,20));
-        buton1.addActionListener(e -> {
-            frame.dispose();
-            new View();
-        });
-        panel.add(buton1);
 
         buton2.setText("ADD client");
         buton2.setBounds(320,80,140,25);
