@@ -1,4 +1,5 @@
 package Connection;
+import Presentation.ClientView;
 import Presentation.View;
 
 import java.sql.Connection;
