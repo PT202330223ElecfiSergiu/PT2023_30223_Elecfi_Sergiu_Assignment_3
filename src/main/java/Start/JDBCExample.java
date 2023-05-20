@@ -1,4 +1,4 @@
-package Connection;
+package Start;
 import Presentation.ClientView;
 import Presentation.View;
 
@@ -11,7 +11,6 @@ public class JDBCExample {
     public static void main(String[] args){
         View view = new View();
     }
-
     public static void main2() {
 
         // auto close connection

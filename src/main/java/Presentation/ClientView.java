@@ -1,14 +1,13 @@
 package Presentation;
-
+import BLL.ClientBLL;
 import javax.swing.*;
 import java.awt.*;
-
+import Model.Client;
+import DataAccess.ClientDAO;
 public class ClientView {
 
     private JFrame frame = new JFrame("Clients Management");
-
     private JPanel panel = new JPanel();
-
     private JTextField textField1 = new JTextField();
     private JTextField textField2 = new JTextField();
     private JTextField textField3 = new JTextField();
@@ -21,6 +20,10 @@ public class ClientView {
     private JButton buton2 = new JButton();
     private JButton buton3 = new JButton();
     private JButton buton4 = new JButton();
+    private JTextArea textArea = new JTextArea();
+    private JScrollPane scroll = new JScrollPane(textArea);
+    private ClientDAO CL;
+    private ClientBLL PL = new ClientBLL();
     public ClientView(){
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,9 +36,10 @@ public class ClientView {
         textFields();
         labels();
         buttons();
-
+        textAreas("");
         frame.setVisible(true);
         frame.setResizable(false);
+        CL = new ClientDAO();
     }
 
     public void textFields(){
@@ -58,6 +62,12 @@ public class ClientView {
         textField4.setFont(new Font("times new roman", Font.ITALIC,20));
         textField4.setBackground(new Color(211,211,211));
         panel.add(textField4);
+    }
+
+    public void textAreas(String s){
+        scroll.setBounds(25,200,530,335);
+        textArea.setText(s);
+        panel.add(scroll);
     }
 
     public void labels(){
@@ -91,16 +101,65 @@ public class ClientView {
         buton2.setText("ADD client");
         buton2.setBounds(320,80,140,25);
         buton2.setFont(new Font("times new roman",Font.ITALIC,20));
+        buton2.addActionListener(e -> {
+            int id;
+            String name;
+            String email;
+            int age;
+            String aux = textField1.getText();
+            id = Integer.parseInt(aux);
+            name = textField2.getText();
+            email = textField3.getText();
+            aux = textField4.getText();
+            age = Integer.parseInt(aux);
+            Client client = new Client(id,name,email,age);
+            CL.insert(client);
+            scriere();
+        });
         panel.add(buton2);
 
         buton3.setText("EDIT client");
         buton3.setBounds(320,120,150,25);
         buton3.setFont(new Font("times new roman",Font.ITALIC,20));
+        buton3.addActionListener(e -> {
+            int id;
+            String name;
+            String email;
+            int age;
+            String aux = textField1.getText();
+            id = Integer.parseInt(aux);
+            name = textField2.getText();
+            email = textField3.getText();
+            aux = textField4.getText();
+            age = Integer.parseInt(aux);
+            Client client = new Client(id,name,email,age);
+            CL.update(client);
+            scriere();
+        });
         panel.add(buton3);
 
         buton4.setText("DELETE client");
         buton4.setBounds(320,160,180,25);
         buton4.setFont(new Font("times new roman",Font.ITALIC,20));
+        buton4.addActionListener(e -> {
+            int id;
+            String name;
+            String email;
+            int age;
+            String aux = textField1.getText();
+            id = Integer.parseInt(aux);
+            name = textField2.getText();
+            email = textField3.getText();
+            aux = textField4.getText();
+            age = Integer.parseInt(aux);
+            Client client = new Client(id,name,email,age);
+            CL.delete(client);
+            scriere();
+        });
         panel.add(buton4);
+    }
+
+    public void scriere(){
+        textArea.setText(PL.afisareClienti());
     }
 }

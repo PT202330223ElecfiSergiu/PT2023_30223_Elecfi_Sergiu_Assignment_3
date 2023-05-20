@@ -44,4 +44,9 @@ public class Client {
     public int getAge() {
         return age;
     }
+
+    public String toString(){
+        return this.id + "  |  " + this.name + "   |" +  this.email +"    |  " + this.age;
+    }
+
 }

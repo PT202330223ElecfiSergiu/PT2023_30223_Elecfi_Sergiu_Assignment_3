@@ -44,4 +44,8 @@ public class Product {
     public int getPrice() {
         return price;
     }
+
+    public String toString(){
+        return this.getId() + "   |" + this.getName() + "  |" + this.getStock() + "  |" + this.getPrice() + "   ";
+    }
 }
