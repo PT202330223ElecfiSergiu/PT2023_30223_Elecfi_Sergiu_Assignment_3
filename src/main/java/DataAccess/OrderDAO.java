@@ -51,7 +51,7 @@ public class OrderDAO {
                 preparedStatement = conn.prepareStatement(updateQuery);
                 preparedStatement.setInt(1, order.getNr());
                 preparedStatement.setInt(2, order.getIdProduct());
-                preparedStatement.executeQuery();
+                preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
             LOGGER.severe("ERROR executing SQL query: " + e.getMessage());

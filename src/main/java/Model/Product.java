@@ -12,7 +12,9 @@ public class Product {
         this.stock = stock;
         this.price = price;
     }
-
+    public Product() {
+        // constructor implicit, fără parametri
+    }
     public void setId(int id) {
         this.id = id;
     }

@@ -88,15 +88,9 @@ public class ClientView {
 
     public void modificare(){
         this.clients = PL.getAll();
-        model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Name");
-        model.addColumn("Email");
-        model.addColumn("Age");
+        model.setRowCount(0); // Șterge toate rândurile existente în modelul tabelului
 
-        this.clients = PL.getAll();
-
-        for(Client x : clients){
+        for (Client x : clients){
             Object[] row = {x.getId(), x.getName(), x.getEmail(), x.getAge()};
             model.addRow(row);
         }

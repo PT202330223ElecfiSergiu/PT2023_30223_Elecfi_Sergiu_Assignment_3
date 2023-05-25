@@ -90,15 +90,9 @@ public class ProductView {
 
     public void modificare(){
         this.products = PL.getAll();
-        model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Name");
-        model.addColumn("Stock");
-        model.addColumn("Price");
+        model.setRowCount(0);
 
-        this.products = PL.getAll();
-
-        for(Product x : products){
+        for (Product x : products) {
             Object[] row = {x.getId(), x.getName(), x.getStock(), x.getPrice()};
             model.addRow(row);
         }
@@ -155,7 +149,7 @@ public class ProductView {
         buton3.setText("EDIT product");
         buton3.setBounds(320,120,150,25);
         buton3.setFont(new Font("times new roman",Font.ITALIC,20));
-        buton2.addActionListener(e -> {
+        buton3.addActionListener(e -> {
             int id;
             String name;
             int stock;

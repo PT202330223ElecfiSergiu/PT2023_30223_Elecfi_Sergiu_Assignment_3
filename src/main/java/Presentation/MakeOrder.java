@@ -19,9 +19,10 @@ public class MakeOrder {
     private JTextField textField2 = new JTextField();
     private JTextField textField3 = new JTextField();
     private JTextField textField4 = new JTextField();
+    private ProductView PV;
     private OrderBLL OD;
     public MakeOrder(){
-        new ProductView();
+        PV = new ProductView();
         new ClientView();
 
         frame.setSize(500,500);
@@ -65,6 +66,7 @@ public class MakeOrder {
             int pieces = Integer.parseInt(s);
             Order order = new Order(id,idProdus,idClient,pieces);
             OD.makeOrder(order);
+            PV.modificare();
         });
         panel.add(create);
     }

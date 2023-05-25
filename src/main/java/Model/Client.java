@@ -5,7 +5,9 @@ public class Client {
     private String name;
     private String email;
     private int age;
-
+    public Client() {
+        // constructor implicit, fără parametri
+    }
     public Client(int id, String name, String email, int age){
         this.id = id;
         this.name = name;

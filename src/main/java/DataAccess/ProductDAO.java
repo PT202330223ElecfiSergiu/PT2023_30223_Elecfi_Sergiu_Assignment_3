@@ -26,7 +26,7 @@ public class ProductDAO extends AbstractDAO<Product>{
             statement.setInt(3,product.getPrice());
             statement.setInt(4,product.getId());
 
-            statement.executeQuery();
+            statement.executeUpdate();
             System.out.println("Update succesfull");
         } catch (SQLException e){
             LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
@@ -46,7 +46,7 @@ public class ProductDAO extends AbstractDAO<Product>{
             conn = ConnectionFactory.getConnection();
             statement = conn.prepareStatement(s);
             statement.setInt(1,product.getId());
-            statement.executeQuery();
+            statement.executeUpdate();
             System.out.println("Delete succesfull");
         } catch (SQLException e){
             LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
@@ -58,7 +58,7 @@ public class ProductDAO extends AbstractDAO<Product>{
     }
 
     public void insert(Product product){
-        String s = "INSERT INTO products (id,name,stock,price)";
+        String s = "INSERT INTO products (id,name,stock,price) VALUES (?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;

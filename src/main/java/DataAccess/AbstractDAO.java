@@ -1,63 +1,81 @@
 package DataAccess;
-import Connection.ConnectionFactory;
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Connection;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.reflect.Constructor;
+
+import Connection.ConnectionFactory;
 
 public class AbstractDAO<T> {
-    private String table;
-    private final Class<T> sir;
     protected static final Logger LOGGER = Logger.getLogger(AbstractDAO.class.getName());
+    private String table;
     public AbstractDAO(String table){
-        this.sir = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         this.table = table;
     }
 
     public List<T> getAll(){
         List<T> sir = new ArrayList<>();
+        String query = "SELECT * FROM " + table;
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String s = "SELECT * FROM " + table;
-
         try{
             conn = ConnectionFactory.getConnection();
-            statement = conn.prepareStatement(s);
+            statement = conn.prepareStatement(query);
             rs = statement.executeQuery();
-            while (rs.next()){
-                T x = createObject(rs);
+            ResultSetMetaData metaData = rs.getMetaData();
+            int col = metaData.getColumnCount();
+            while(rs.next()){
+                T x = createInstance();
+                for(int i = 1; i <= col; i++){
+                    String colName = metaData.getColumnName(i);
+                    Object colValue = rs.getObject(i);
+                    setFieldValue(x,colName,colValue);
+                }
                 sir.add(x);
             }
-        } catch (SQLException | ReflectiveOperationException e){
+        } catch(SQLException e){
             LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);
             ConnectionFactory.close(conn);
         }
-
         return sir;
     }
 
-    private T createObject(ResultSet rs) throws SQLException, ReflectiveOperationException{
-        T aux = sir.getDeclaredConstructor().newInstance();
-        Field[] fields = sir.getDeclaredFields();
-
-        for(Field field : fields){
-            field.setAccessible(true);
-            String fieldName = field.getName();
-            Object value = rs.getObject(fieldName);
-            field.set(aux,value);
+    private T createInstance() {
+        try {
+            Class<T> cl = getGenericTypeClass();
+            Constructor<T> constructor = cl.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create instance of " + table, e);
         }
-
-        return aux;
     }
 
+    private void setFieldValue(T object, String fieldName, Object fieldValue){
+        try{
+            Class<?> cl = object.getClass();
+            Field field = cl.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(object,fieldValue);
+        } catch (Exception e){
+            throw new RuntimeException("Failed to set field value for " + fieldName, e);
+        }
+    }
+
+    private Class<T> getGenericTypeClass(){
+        try{
+            return (Class<T>) ((java.lang.reflect.ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        } catch (Exception e){
+            throw new RuntimeException("Failed to get generic type class", e);
+        }
+    }
 }
