@@ -5,7 +5,12 @@ import Model.Order;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ *This class is a GUI interface, and it's used to create an order.
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class MakeOrder {
     private JFrame frame = new JFrame("Make Orders");
     private JPanel panel = new JPanel();

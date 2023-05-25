@@ -1,5 +1,10 @@
 package Model;
-
+/**
+ *This class represents a row from the table products, an object;
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class Product {
     private int id;
     private String name;

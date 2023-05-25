@@ -10,7 +10,13 @@ import java.util.logging.Logger;
 import java.lang.reflect.Constructor;
 
 import Connection.ConnectionFactory;
-
+/**
+ * This class is used to return every row from the table in WorkBench.
+ * This class uses the reflexion method to get all elements from the table;
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class AbstractDAO<T> {
     protected static final Logger LOGGER = Logger.getLogger(AbstractDAO.class.getName());
     private String table;

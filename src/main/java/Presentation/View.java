@@ -2,7 +2,12 @@ package Presentation;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ *This class is used to start the application, or to close it.
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class View {
     private JFrame frame = new JFrame("Orders Management");
     private JPanel panel = new JPanel();

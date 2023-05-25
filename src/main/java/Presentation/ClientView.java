@@ -8,7 +8,13 @@ import java.util.List;
 import Model.Client;
 import DataAccess.ClientDAO;
 import Model.Product;
-
+/**
+ *This class is a GUI for manipulating operations for table 'clients'.
+ * It also shows the table's content live.
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class ClientView {
 
     private JFrame frame = new JFrame("Clients Management");

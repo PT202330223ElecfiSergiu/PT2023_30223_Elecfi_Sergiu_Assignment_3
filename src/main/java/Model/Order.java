@@ -1,5 +1,10 @@
 package Model;
-
+/**
+ *This class represents a row from the table orders, an object;
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class Order {
     public int id;
     public int idProduct;

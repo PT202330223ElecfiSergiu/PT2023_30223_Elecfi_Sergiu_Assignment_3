@@ -4,7 +4,12 @@ import Model.Client;
 import DataAccess.ClientDAO;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class is used for calling the methods from DataAcess classes(ClientDAO).
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class ClientBLL {
     private List<Client> clienti;
     private ClientDAO CL;

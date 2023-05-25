@@ -3,6 +3,12 @@ package Connection;
 import java.sql.*;
 import java.util.logging.Logger;
 
+/**
+ * This class is for making connection with the database in WorkBench
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class ConnectionFactory {
     private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";

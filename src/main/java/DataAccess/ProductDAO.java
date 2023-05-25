@@ -6,7 +6,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
+/**
+ * In this class are implemented CRUD operations for the table 'products'.
+ * It also extends the AbstractDAO class.
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class ProductDAO extends AbstractDAO<Product>{
     protected static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
     public ProductDAO(){

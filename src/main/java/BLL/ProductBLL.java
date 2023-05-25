@@ -5,7 +5,12 @@ import Model.Product;
 import DataAccess.ProductDAO;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class is used for calling the methods from DataAcess classes(ProductDAO).
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class ProductBLL {
     private List<Product> produse;
     private ProductDAO PR;

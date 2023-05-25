@@ -1,13 +1,16 @@
 package Model;
-
+/**
+ *This class represents a row from the table clients, an object;
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class Client {
     private int id;
     private String name;
     private String email;
     private int age;
-    public Client() {
-        // constructor implicit, fără parametri
-    }
+    public Client() {}
     public Client(int id, String name, String email, int age){
         this.id = id;
         this.name = name;

@@ -6,7 +6,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
+/**
+ * In this class are implemented CRUD operations for the table 'clients'.
+ * It also extends the AbstractDAO class.
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class ClientDAO extends AbstractDAO<Client> {
     protected static final Logger LOGGER = Logger.getLogger(ClientDAO.class.getName());
     public ClientDAO(){

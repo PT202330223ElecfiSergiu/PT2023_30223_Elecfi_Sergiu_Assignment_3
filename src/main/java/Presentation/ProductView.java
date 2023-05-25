@@ -10,6 +10,14 @@ import BLL.ProductBLL;
 import Model.Client;
 import Model.Product;
 import DataAccess.ProductDAO;
+
+/**
+ *This class is a GUI for manipulating operations for table 'products'.
+ * It also shows the table's content live.
+ *
+ * @author Elecfi Sergiu - Andrei 30223
+ * @date 25.05.2023
+ */
 public class ProductView {
     private JFrame frame = new JFrame("Products Management");
 
