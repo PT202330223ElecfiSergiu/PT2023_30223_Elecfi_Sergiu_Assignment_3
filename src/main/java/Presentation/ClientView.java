@@ -1,9 +1,14 @@
 package Presentation;
 import BLL.ClientBLL;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
+
 import Model.Client;
 import DataAccess.ClientDAO;
+import Model.Product;
+
 public class ClientView {
 
     private JFrame frame = new JFrame("Clients Management");
@@ -20,7 +25,11 @@ public class ClientView {
     private JButton buton2 = new JButton();
     private JButton buton3 = new JButton();
     private JButton buton4 = new JButton();
-    private ClientBLL PL;
+    private DefaultTableModel model = new DefaultTableModel();
+    private JTable table = new JTable(model);
+    private JScrollPane scrollPane = new JScrollPane(table);
+    private List<Client> clients;
+    private ClientBLL PL = new ClientBLL();
     public ClientView(){
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,9 +42,9 @@ public class ClientView {
         textFields();
         labels();
         buttons();
+        table();
         frame.setVisible(true);
         frame.setResizable(false);
-        PL = new ClientBLL();
     }
 
     public void textFields(){
@@ -58,6 +67,39 @@ public class ClientView {
         textField4.setFont(new Font("times new roman", Font.ITALIC,20));
         textField4.setBackground(new Color(211,211,211));
         panel.add(textField4);
+    }
+
+    public void table(){
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Email");
+        model.addColumn("Age");
+
+        this.clients = PL.getAll();
+
+        for(Client x : clients){
+            Object[] row = {x.getId(), x.getName(), x.getEmail(), x.getAge()};
+            model.addRow(row);
+        }
+
+        scrollPane.setBounds(45,200,500,300);
+        panel.add(scrollPane);
+    }
+
+    public void modificare(){
+        this.clients = PL.getAll();
+        model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Email");
+        model.addColumn("Age");
+
+        this.clients = PL.getAll();
+
+        for(Client x : clients){
+            Object[] row = {x.getId(), x.getName(), x.getEmail(), x.getAge()};
+            model.addRow(row);
+        }
     }
 
     public void labels(){
@@ -104,6 +146,7 @@ public class ClientView {
             age = Integer.parseInt(aux);
             Client client = new Client(id,name,email,age);
             PL.insert(client);
+            modificare();
         });
         panel.add(buton2);
 
@@ -123,6 +166,7 @@ public class ClientView {
             age = Integer.parseInt(aux);
             Client client = new Client(id,name,email,age);
             PL.update(client);
+            modificare();
         });
         panel.add(buton3);
 
@@ -142,6 +186,7 @@ public class ClientView {
             age = Integer.parseInt(aux);
             Client client = new Client(id,name,email,age);
             PL.delete(client);
+            modificare();
         });
         panel.add(buton4);
     }

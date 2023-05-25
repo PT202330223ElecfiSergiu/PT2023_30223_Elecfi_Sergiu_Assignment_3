@@ -84,8 +84,8 @@ public class ProductView {
             model.addRow(row);
         }
 
-        scrollPane.setBounds(30,200,400,400);
-        frame.add(scrollPane);
+        scrollPane.setBounds(45,200,500,300);
+        panel.add(scrollPane);
     }
 
     public void modificare(){
