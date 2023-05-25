@@ -64,6 +64,7 @@ public class View {
         next.setBounds(30,260,120,25);
         next.setFont(new Font("times new roman", Font.ITALIC,20));
         next.addActionListener(e -> {
+            frame.dispose();
             new MakeOrder();
         });
         panel.add(next);

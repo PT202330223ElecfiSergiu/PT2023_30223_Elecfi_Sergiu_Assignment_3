@@ -1,7 +1,10 @@
 package Presentation;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import BLL.ProductBLL;
 import Model.Client;
@@ -23,9 +26,10 @@ public class ProductView {
     private JButton buton2 = new JButton();
     private JButton buton3 = new JButton();
     private JButton buton4 = new JButton();
-    private JTextArea textArea = new JTextArea();
-    private JScrollPane scroll = new JScrollPane(textArea);
-    private ProductDAO PR;
+    private DefaultTableModel model = new DefaultTableModel();
+    private JTable table = new JTable(model);
+    private JScrollPane scrollPane = new JScrollPane(table);
+    private List<Product> products;
     private ProductBLL PL = new ProductBLL();
     public ProductView(){
         frame.setSize(600,600);
@@ -39,18 +43,11 @@ public class ProductView {
         textFields();
         labels();
         buttons();
-        textAreas(PL.afisareProduse());
+        table();
         frame.setVisible(true);
         frame.setResizable(false);
-
-        PR = new ProductDAO();
     }
 
-    public void textAreas(String s){
-        scroll.setBounds(25,200,530,335);
-        textArea.setText(s);
-        panel.add(scroll);
-    }
 
     public void textFields(){
         textField1.setBounds(120,40,70,30);
@@ -74,6 +71,38 @@ public class ProductView {
         panel.add(textField4);
     }
 
+    public void table(){
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Stock");
+        model.addColumn("Price");
+
+        this.products = PL.getAll();
+
+        for(Product x : products){
+            Object[] row = {x.getId(), x.getName(), x.getStock(), x.getPrice()};
+            model.addRow(row);
+        }
+
+        scrollPane.setBounds(30,200,400,400);
+        frame.add(scrollPane);
+    }
+
+    public void modificare(){
+        this.products = PL.getAll();
+        model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Stock");
+        model.addColumn("Price");
+
+        this.products = PL.getAll();
+
+        for(Product x : products){
+            Object[] row = {x.getId(), x.getName(), x.getStock(), x.getPrice()};
+            model.addRow(row);
+        }
+    }
     public void labels(){
         label1.setText("ID:");
         label1.setFont(new Font("times new roman", Font.ITALIC,25));
@@ -118,8 +147,8 @@ public class ProductView {
             aux = textField4.getText();
             price = Integer.parseInt(aux);
             Product product = new Product(id,name,stock,price);
-            PR.insert(product);
-            scriere();
+            PL.insert(product);
+            modificare();
         });
         panel.add(buton2);
 
@@ -139,8 +168,8 @@ public class ProductView {
             aux = textField4.getText();
             price = Integer.parseInt(aux);
             Product product = new Product(id,name,stock,price);
-            PR.update(product);
-            scriere();
+            PL.update(product);
+            modificare();
         });
         panel.add(buton3);
 
@@ -160,13 +189,10 @@ public class ProductView {
             aux = textField4.getText();
             price = Integer.parseInt(aux);
             Product product = new Product(id,name,stock,price);
-            PR.delete(product);
-            scriere();
+            PL.delete(product);
+            modificare();
         });
         panel.add(buton4);
     }
-
-    public void scriere(){
-        textArea.setText(PL.afisareProduse());
-    }
 }
+

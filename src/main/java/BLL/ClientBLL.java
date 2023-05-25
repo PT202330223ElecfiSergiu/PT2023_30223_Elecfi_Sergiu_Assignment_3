@@ -11,16 +11,22 @@ public class ClientBLL {
     public ClientBLL(){
         this.CL = new ClientDAO();
         this.clienti = new ArrayList<>();
+    }
+
+    public List<Client> getAll(){
         this.clienti = CL.getAll();
+        return this.clienti;
     }
 
-    public String afisareClienti(){
-        String x = "";
-        x = "ID  |  Name    | Email            |  Age :  " + '\n';
-        for(Client aux : clienti){
-            x = x + aux.toString();
-        }
-        return x;
+    public void insert(Client client){
+        CL.insert(client);
     }
 
+    public void delete(Client client){
+        CL.delete(client);
+    }
+
+    public void update(Client client){
+        CL.update(client);
+    }
 }

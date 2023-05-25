@@ -5,9 +5,10 @@ import Model.Client;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ClientDAO extends AbstractDAO<Client>{
-
+    protected static final Logger LOGGER = Logger.getLogger(ClientDAO.class.getName());
     public ClientDAO(){
         super("clients");
     }
@@ -28,7 +29,7 @@ public class ClientDAO extends AbstractDAO<Client>{
             statement.executeQuery();
             System.out.println("Update succesfull");
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);
@@ -50,7 +51,7 @@ public class ClientDAO extends AbstractDAO<Client>{
             statement.executeQuery();
             System.out.println("Delete succesfull");
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);
@@ -76,7 +77,7 @@ public class ClientDAO extends AbstractDAO<Client>{
             statement.executeUpdate();
             System.out.println("Insertion succesfull");
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);

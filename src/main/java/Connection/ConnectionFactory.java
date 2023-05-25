@@ -8,7 +8,7 @@ public class ConnectionFactory {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DBURL = "jdbc:mysql://localhost/tema3pt";
     private static final String USER = "root";
-    private static final String PASS = "root";
+    private static final String PASS = "sergiu19A@";
 
     private static ConnectionFactory singleInstance = new ConnectionFactory();
 

@@ -5,9 +5,10 @@ import Model.Product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ProductDAO extends AbstractDAO<Product>{
-
+    protected static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
     public ProductDAO(){
         super("products");
     }
@@ -28,7 +29,7 @@ public class ProductDAO extends AbstractDAO<Product>{
             statement.executeQuery();
             System.out.println("Update succesfull");
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);
@@ -48,7 +49,7 @@ public class ProductDAO extends AbstractDAO<Product>{
             statement.executeQuery();
             System.out.println("Delete succesfull");
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);
@@ -73,7 +74,7 @@ public class ProductDAO extends AbstractDAO<Product>{
             statement.executeUpdate();
             System.out.println("Insertion succesfull");
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);

@@ -1,5 +1,8 @@
 package Presentation;
 
+import BLL.OrderBLL;
+import Model.Order;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,6 +19,7 @@ public class MakeOrder {
     private JTextField textField2 = new JTextField();
     private JTextField textField3 = new JTextField();
     private JTextField textField4 = new JTextField();
+    private OrderBLL OD;
     public MakeOrder(){
         new ProductView();
         new ClientView();
@@ -33,6 +37,8 @@ public class MakeOrder {
         buttons();
         frame.setVisible(true);
         frame.setResizable(false);
+
+        this.OD = new OrderBLL();
     }
 
     public void buttons(){
@@ -47,6 +53,19 @@ public class MakeOrder {
         create.setText("Add order");
         create.setBounds(150,200,150,25);
         create.setFont(new Font("times new roman", Font.ITALIC,20));
+        create.addActionListener(e ->{
+            String s;
+            s = textField1.getText();
+            int id = Integer.parseInt(s);
+            s = textField2.getText();
+            int idProdus = Integer.parseInt(s);
+            s = textField3.getText();
+            int idClient = Integer.parseInt(s);
+            s = textField4.getText();
+            int pieces = Integer.parseInt(s);
+            Order order = new Order(id,idProdus,idClient,pieces);
+            OD.makeOrder(order);
+        });
         panel.add(create);
     }
 

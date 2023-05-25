@@ -12,15 +12,23 @@ public class ProductBLL {
     public ProductBLL(){
         this.PR = new ProductDAO();
         this.produse = new ArrayList<>();
-        this.produse = PR.getAll();
     }
 
-    public String afisareProduse(){
-        String x = "";
-        x = "ID  |  Name    |Stock|Price :  " + '\n';
-        for(Product aux : produse){
-            x = x + aux.toString();
-        }
-        return x;
+    public List<Product> getAll(){
+        this.produse = PR.getAll();
+        return this.produse;
     }
+
+    public void insert(Product product) {
+        PR.insert(product);
+    }
+
+    public void delete(Product product){
+        PR.delete(product);
+    }
+
+    public void update(Product product){
+        PR.update(product);
+    }
+
 }

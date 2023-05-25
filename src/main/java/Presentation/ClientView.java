@@ -20,10 +20,7 @@ public class ClientView {
     private JButton buton2 = new JButton();
     private JButton buton3 = new JButton();
     private JButton buton4 = new JButton();
-    private JTextArea textArea = new JTextArea();
-    private JScrollPane scroll = new JScrollPane(textArea);
-    private ClientDAO CL;
-    private ClientBLL PL = new ClientBLL();
+    private ClientBLL PL;
     public ClientView(){
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,10 +33,9 @@ public class ClientView {
         textFields();
         labels();
         buttons();
-        textAreas("");
         frame.setVisible(true);
         frame.setResizable(false);
-        CL = new ClientDAO();
+        PL = new ClientBLL();
     }
 
     public void textFields(){
@@ -62,12 +58,6 @@ public class ClientView {
         textField4.setFont(new Font("times new roman", Font.ITALIC,20));
         textField4.setBackground(new Color(211,211,211));
         panel.add(textField4);
-    }
-
-    public void textAreas(String s){
-        scroll.setBounds(25,200,530,335);
-        textArea.setText(s);
-        panel.add(scroll);
     }
 
     public void labels(){
@@ -113,8 +103,7 @@ public class ClientView {
             aux = textField4.getText();
             age = Integer.parseInt(aux);
             Client client = new Client(id,name,email,age);
-            CL.insert(client);
-            scriere();
+            PL.insert(client);
         });
         panel.add(buton2);
 
@@ -133,8 +122,7 @@ public class ClientView {
             aux = textField4.getText();
             age = Integer.parseInt(aux);
             Client client = new Client(id,name,email,age);
-            CL.update(client);
-            scriere();
+            PL.update(client);
         });
         panel.add(buton3);
 
@@ -153,13 +141,8 @@ public class ClientView {
             aux = textField4.getText();
             age = Integer.parseInt(aux);
             Client client = new Client(id,name,email,age);
-            CL.delete(client);
-            scriere();
+            PL.delete(client);
         });
         panel.add(buton4);
-    }
-
-    public void scriere(){
-        textArea.setText(PL.afisareClienti());
     }
 }

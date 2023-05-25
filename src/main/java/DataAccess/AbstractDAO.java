@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
+import java.util.logging.Logger;
 
 public class AbstractDAO<T> {
     private String table;
     private final Class<T> sir;
+    protected static final Logger LOGGER = Logger.getLogger(AbstractDAO.class.getName());
     public AbstractDAO(String table){
         this.sir = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         this.table = table;
@@ -34,7 +36,7 @@ public class AbstractDAO<T> {
                 sir.add(x);
             }
         } catch (SQLException | ReflectiveOperationException e){
-            e.printStackTrace();
+            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);
