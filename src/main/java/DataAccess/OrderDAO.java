@@ -42,9 +42,9 @@ public class OrderDAO {
 
             int pretTotal = order.getNr() * price;
 
-            String insertQuery = "INSERT INTO orders (id,idproduct,idclient,nrofpieces,price) VALUES (?,?,?,?,?)";
+            String insert = "INSERT INTO orders (id,idproduct,idclient,nrofpieces,price) VALUES (?,?,?,?,?)";
 
-            preparedStatement = conn.prepareStatement(insertQuery);
+            preparedStatement = conn.prepareStatement(insert);
             preparedStatement.setInt(1, order.getId());
             preparedStatement.setInt(2, order.getIdProduct());
             preparedStatement.setInt(3, order.getIdClient());
