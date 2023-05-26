@@ -26,27 +26,27 @@ public class AbstractDAO<T> {
 
     public List<T> getAll(){
         List<T> sir = new ArrayList<>();
-        String query = "SELECT * FROM " + table;
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
         try{
+            String s = "SELECT * FROM " + table;
             conn = ConnectionFactory.getConnection();
-            statement = conn.prepareStatement(query);
+            statement = conn.prepareStatement(s);
             rs = statement.executeQuery();
-            ResultSetMetaData metaData = rs.getMetaData();
-            int col = metaData.getColumnCount();
+            ResultSetMetaData meta = rs.getMetaData();
+            int col = meta.getColumnCount();
             while(rs.next()){
                 T x = createInstance();
                 for(int i = 1; i <= col; i++){
-                    String colName = metaData.getColumnName(i);
+                    String colName = meta.getColumnName(i);
                     Object colValue = rs.getObject(i);
                     setFieldValue(x,colName,colValue);
                 }
                 sir.add(x);
             }
         } catch(SQLException e){
-            LOGGER.severe("ERROR executing SQL query: " + e.getMessage());
+            LOGGER.severe("ERROR at executing SQL query: " + e.getMessage());
         } finally{
             ConnectionFactory.close(rs);
             ConnectionFactory.close(statement);
@@ -62,18 +62,18 @@ public class AbstractDAO<T> {
             constructor.setAccessible(true);
             return constructor.newInstance();
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create instance of " + table, e);
+            throw new RuntimeException("Error at creating instance of " + table, e);
         }
     }
 
-    private void setFieldValue(T object, String fieldName, Object fieldValue){
+    private void setFieldValue(T object, String fieldName, Object fieldV){
         try{
             Class<?> cl = object.getClass();
             Field field = cl.getDeclaredField(fieldName);
             field.setAccessible(true);
-            field.set(object,fieldValue);
+            field.set(object,fieldV);
         } catch (Exception e){
-            throw new RuntimeException("Failed to set field value for " + fieldName, e);
+            throw new RuntimeException("Error at setting field value for " + fieldName, e);
         }
     }
 
@@ -81,7 +81,7 @@ public class AbstractDAO<T> {
         try{
             return (Class<T>) ((java.lang.reflect.ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         } catch (Exception e){
-            throw new RuntimeException("Failed to get generic type class", e);
+            throw new RuntimeException("Error at getting generic class for ", e);
         }
     }
 }
